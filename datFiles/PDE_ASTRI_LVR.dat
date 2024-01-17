@@ -1,0 +1,60 @@
+# ASTRI sensor PDE measured at Catania, 
+# data provided by Osvaldo Catalano, 2018-03-06.
+# Supplemented with values scaled from PDE_ASTRI_LCT5_75um_OV_4V_meas.dat
+# for extending below 285 nm and above 851 nm (KB).
+# Scaling factor used on both sides for extrapolation: 1.6
+# With alternate extrapolations beyond 851 nm, the NSB pixel rate
+# could be 4% lower (linear extrapolation) or 17% worse (exponential tail)
+# or more if extrapolating beyond 1000 nm.
+
+ 228  0.0018  0  # Extrapolation
+ 240  0.0558  0  # Extrapolation
+ 254  0.1270  0  # Extrapolation
+ 270  0.1254  0  # Extrapolation
+
+ 285	0.2316	0.004632
+ 315	0.34	0.0068
+ 385	0.4168  0.00834
+ 405	0.4968  0.00994
+ 430	0.5362  0.01072
+ 450	0.5636  0.01127
+ 465	0.5698  0.01140
+ 505	0.4963  0.00993
+ 570	0.4133  0.00827
+ 591	0.3735  0.00747
+ 635	0.3003  0.00601
+ 660	0.2822  0.00564
+ 680	0.2534  0.00507
+ 780	0.1695  0.00339
+ 851	0.1056  0.00211
+
+ 860  0.0851  0  # Extrapolation
+ 870  0.0774  0  # Extrapolation
+ 880  0.0718  0  # Extrapolation
+ 890  0.0664  0  # Extrapolation
+ 900  0.0570  0  # Extrapolation
+ 910  0.0518  0  # Extrapolation
+ 920  0.0464  0  # Extrapolation
+ 930  0.0398  0  # Extrapolation
+ 940  0.0362  0  # Extrapolation
+ 950  0.0314  0  # Extrapolation
+ 960  0.0261  0  # Extrapolation
+ 970  0.0224  0  # Extrapolation
+ 980  0.0197  0  # Extrapolation
+ 990  0.0163  0  # Extrapolation
+1000  0.0157  0  # Extrapolation
+
+# 875 0.08587 0 # Extrapolation 2 (linear)
+# 900 0.06431 0 # Extrapolation 2
+# 925 0.04274 0 # Extrapolation 2
+# 950 0.02117 0 # Extrapolation 2
+# 975 0. 0      # Extrapolation 2
+
+# 875  0.1016  0 # Extrapolation 3 (exponential)
+# 900  0.0903  0 # Extrapolation 3
+# 925  0.08019 0 # Extrapolation 3
+# 950  0.07123 0 # Extrapolation 3
+# 975  0.06327 0 # Extrapolation 3
+# 1000 0.0562  0 # Extrapolation 3
+# 1025 0.0499  0 # Extrapolation 3
+# 1050 0.04435 0 # Extrapolation 3

@@ -1,0 +1,29 @@
+# RINGsegments approximation for the SCT primary reflector,
+# using the parameters from Table 3 of the TDR document (MAN-PO/120915).
+
+# Format of lines: type nseg { rmin rmax dphi phi0 | x y diam rot }
+#    type: RINGsegments | SQUAREsegments | (Y)HEXsegments | CIRCULARsegments
+#          (the capital part being the minimum abbreviation required).
+#          Instead of the two fundamental orientations of hexagons used
+#          for pixels and mirror tiles in single-reflector configurations,
+#          the orientation of hexagons is defined by the rotation angle
+#          (0 degrees corresponding to shape type 1, with two flat sides
+#          parallel to the x axis, 90 deg. corresponding to shape type 3).
+#    nseg: Number of segments in this group; must be =1 except for ring segments
+#    Ring segments:
+#       rmin, rmax: minimum and maximum radius of ring in x/y projection [cm].
+#       dphi: angle around axis subtended by each segment [deg.];
+#             for a complete ring it would be 360/nseg.
+#       phi0: angle around axis where first segment starts [deg.].
+#    Other segment types (configured individually):
+#       x, y: position of segment center in x/y projection [cm].
+#       diam: diameter of segment in projection along surface normal at center [cm].
+#       rot:  rotation angle of segment around its own axis (sq.+hex) [deg.]
+
+# Inner ring:
+# RING 16 219.35 340.00 22.5 0 0.0 # No gaps
+RING 16 220.35 339.00 22.5 0 2.0 # 2 cm gaps everywhere
+
+# Outer ring:
+# RING 32 340.00 483.1875 11.25 0 0.0 # No gaps
+RING 32 341.00 482.1875 11.25 0 2.0 # 2 cm gaps everywhere
