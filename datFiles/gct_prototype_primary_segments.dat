@@ -1,0 +1,16 @@
+# Format of lines: circular 1 x y diam rot
+#    type: CIRCULARsegments
+#          (the capital part being the minimum abbreviation required).
+#    nseg: Number of segments in this group; must be =1 except for ring segments
+#    Other segment types (configured individually):
+#       x, y: position of segment center in x/y projection [cm].
+#       diam: diameter of segment in projection along surface normal at center [cm].
+#       rot:  rotation angle of segment around its own axis (sq.+hex) [deg.]
+
+# First circular segment:
+circular 1 133 0 138 0
+
+# Fourth circular segment:
+circular 1 -133 0 138 0
+
+# The other four segments are dummies 
