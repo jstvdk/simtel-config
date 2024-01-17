@@ -1,0 +1,156 @@
+# Telescope positions at La Palma as of 2020-12-01, after cross-checks of telescope
+# positions for LST 1-4 and MST 1-15 with INFRA and the Project Scientist;
+# see INFRA_CTAN_4l9m_v4.txt.
+# All other positions, including many extra candidate positions are as set up for prod-5b.
+#
+# MC x/y coordinates centered on center-of-gravity of the four LSTs
+# (initially also the new central MST 15 position before that one got shifted again).
+# This new zero-point essentially results in a shift by dx=-44.85 m and dy=-0.90 m
+# with respect to positions as used in prod-3 and prod-3b.
+# Increased fiducial sphere radius for MSTs from 7.0 to 8.6 m due to displacement
+# between azimuth and altitude axis.
+# The reference ("observation level") altitude for MC z positions was increased 
+# from 2147 to 2158 m, just below the lowest fiducial sphere used in simulations 
+# (prod3b included telescope positions further down, thus had a lower "observation level").
+# Updated LST1 altitude with values from LST team. Updates for other telescopes welcome.
+# Added inofficial positions of existing MAGIC telescopes.
+#
+# Column 1: Longitude (WGS84) in degrees (negative = West).
+# Column 2: Latitude (WGS84) in degrees.
+# Column 3: UTM (Zone 28R, WGS84) "Easting" value in meters ("500000" = 15 deg. West).
+# Column 4: UTM (Zone 28R, WGS84) "Northing" value in meters ("0" = Equator for Northern Hemisphere).
+# Column 5: Elevation of telescope above sea level
+# Column 6: MC x position [->North] in meters.
+# Column 7: MC y position [->West] in meters.
+# Column 8: MC z position [above 2158 m a.s.l.] for center of telescope "fiducial sphere", in meters.
+# Column 9: MC foundation z position of foundation [above 2158 m a.s.l.], in meters.
+# Column 10: MC height difference foundation to center of fiducial sphere, in meters.
+# Column 11: MC radius of fiducial sphere (note: all spheres forced to be entirely above 2158 m)
+# Column 12: Label shown in plots
+# Column 13: Telescope ID in older (prod-3b) "La Palma baseline" simulations, -1 if not part of that
+# Column 14: Difference dx in MC x positions (current - prod-5b), in meters.
+# Column 15: Difference dy in MC y positions (current - prod-5b), in meters.
+# Column 16: Difference dz in MC z positions (current - prod-5b), in meters.
+# Column 17: Alternate label (as used in prod-3b baseline, if part of that)
+# followed by comments from CORSIKA inputs file, including altitude a.s.l. as read off the map.
+#
+# Transformation from MC x/y positions (local transverse Mercator projection, k_0=1.0) to long/lat with:
+#    cs2cs -f %.9f +proj=tmerc +ellps=WGS84 +datum=WGS84 +lon_0=-17.892030200 +lat_0=28.762166097 +axis=nwu +units=m +to +proj=longlat +datum=WGS84
+# Transformation in the other direction (long/lat/altitude to x/y/z) with:
+#    cs2cs -f %.3f +proj=longlat +datum=WGS84 +to +proj=tmerc +ellps=WGS84 +datum=WGS84 +lon_0=-17.892030200 +lat_0=28.762166097 +axis=nwu +units=m
+# Note the reference position in this transformation is the central MST 
+# of the old (Prod-3) layout and not of the current one.
+# Transformation from long/lat to UTM (Universal Transverse Mercator) with:
+#    cs2cs -f %.3f +proj=longlat +datum=WGS84 +to +proj=utm +zone=28
+# From UTM to long/lat with:
+#    cs2cs -f %.9f +proj=utm +zone=28 +to +proj=longlat +datum=WGS84
+# The appropriate UTM zone is 28R (longitude 18W/12W, latitude 24N/32N).
+#
+# Note that UTM, based on a WW II aerial mapping system, is using a cylinder
+# cutting a bit through the Earth (k_0=0.9996) in each of its 60 longitude zones
+# and results in a somewhat distorted representation. Pythagoras' formula is not
+# really appropriate for calculating the distance between two points on a map.
+# Hint: For proper geometric distances convert first to geocentric x/y/z with
+#    cs2cs -f %.3f +proj=longlat +datum=WGS84 +to +proj=geocent
+# before applying Pythagoras.
+# For the 'cs2cs' (coordinate-system-to-coordinate-system) application,
+# coming with the 'proj' package on most Linux distributions, see http://proj4.org/ .
+# (With cs2cs in all cases reading from standard input, taking the first two or three
+# values in each line as actual input data, and writing to standard output. You can use
+# this file here, lines starting with longitude and latitude, as input for the two
+# commands above that start with "+proj=longlat", into either "utm" or "tmerc".
+# The altitude is not part of most transformations, except to/from geocentric x/y/z.)
+#
+# Note also that the height 'h' above the WGS84 ellipsoid is not identical to the 
+# "height above mean sea level" (typically used: the orthometric height 'H').
+# The mean sea level is an equipotential surface (for a particular potential), the geoid.
+# The deviation N = h - H, also termed the undulation of the geoid (the height of the
+# geoid w.r.t. the reference ellipsoid) can be calculated with the Earth Gravitational Model 2008
+# (EGM2008) or its EGM96 predecessor. EGM2008 results for the CTA North location:
+#     Latitude   Longitude      N = h - H
+#     28.762166  -17.892030     43.933  [m]  
+# The geoid is about 44 m above the reference ellipsoid for CTA North - or the height above
+# mean sea level is 44 m less than the height above the WGS84 ellipsoid as read off a
+# GPS device without EGM undulation lookup table.
+# Altitudes in the following list are intended as orthometric height above mean sea level.
+#
+# Atmospheric profiles, in particular from meteorological sources, often have
+# the geopotential height z_g(z) = \Int_0^z g(z) dz / g_0 as their vertical datum.
+# Use the transformation z_g = (g/g_0) (R z) / (R + z) with g the nominal gravity at 
+# sea level at the site and R the local earth curvature radius.
+# For La Palma use g = 9.79229158 m/s^2, R = 6361684.115 m, g_0 = 9.80665 m/s^2.
+# This ignores the contribution of the air itself to the potential.
+#
+#
+#
+# Longitude       Latitude        UTM East   UTM North     Alt.asl            x          y         z     zf     hs     Rs     Name     Old    dx      dy      dz    Old name
+#  [deg]            [deg]           [m]        [m]           [m]             [m]        [m]       [m]    [m]    [m]    [m]    [CTAO]   ntel   [m]     [m]     [m]   [Prod3b]
+#
+# LSTs:
+#
+-17.891497006	28.761526105     217659.590 3184995.060     2185.000        -70.931    -52.073    43.00  27.00  16.00  12.50   L-01	  1 -0.001  -0.003   0.000  "LST 1"
+-17.892707442	28.761847901     217542.210 3185033.610     2171.450        -35.266     66.140    29.45  13.45  16.00  12.50   L-02	  2  0.004   0.000  -2.550  "LST 2"
+-17.892547226	28.762845346     217560.550 3185143.810     2166.450         75.283     50.493    24.45   8.45  16.00  12.50   L-03	  3  0.003   0.003  -3.550  "LST 3"
+-17.891369314	28.762445009     217674.540 3185096.630     2172.950         30.913    -64.543    30.95  14.95  16.00  12.50   L-04	  4  0.003  -0.003  -1.050  "LST 4"
+
+# MSTs:                                                                                                                          
+#                                                                                                                                
+-17.892088203	28.760257398     217598.417 3184855.810     2199.300       -211.545      5.665    50.30  41.30   9.00   8.60   M-01	  5 -0.005   0.005   0.000  "MST 1"
+-17.893760761	28.760783332     217436.441 3184918.090     2173.000       -153.253    169.011    24.00  15.00   9.00   8.60   M-02	  6  0.007   0.001   0.000  "MST 2"
+-17.894167204	28.762408064     217401.117 3185099.180     2158.000         26.820    208.702     9.00   0.00   9.00   8.60   M-03	  7 -0.250   9.992  -3.200  "MST 3"
+-17.892778269	28.763750611     217540.420 3185244.720     2158.000        175.615     73.056     9.00   0.00   9.00   8.60   M-04	  8  0.005  -0.004   0.000  "MST 4"
+-17.890094910	28.763429261     217801.686 3185202.723     2178.000        140.000   -189.000    29.00  20.00   9.00   8.60   M-05	  9  0.000   0.000   0.000  "MST 5"
+-17.890094903	28.761483702     217796.447 3184987.031     2191.200        -75.630   -189.004    42.20  33.20   9.00   8.60   M-06	 10  0.000  -0.004   0.000  "MST 6"
+-17.890316498	28.760219999     217771.396 3184847.458     2212.100       -215.688   -167.365    63.10  54.10   9.00   8.60   M-07	 11  0.002  -0.005   0.000  "MST 7"
+-17.895425600	28.761272699     217275.122 3184976.300     2158.700        -99.012    331.601     9.70   0.70   9.00   8.60   M-08	 12 -0.002   0.001   0.000  "MST 8"
+-17.888392606	28.764165712     217969.963 3185280.330     2196.000        221.626   -355.245    47.00  38.00   9.00   8.60   M-09	 13  0.006   0.005   0.000  "MST 9"
+-17.888421196	28.762348202     217962.278 3185078.902     2211.600         20.188   -352.459    62.60  53.60   9.00   8.60   M-10	 14 -0.002   0.001   0.300  "MST 10"
+-17.888599099	28.760385901     217939.617 3184861.776     2226.200       -197.298   -335.091    77.20  68.20   9.00   8.60   M-11	 15  0.002  -0.001   0.100  "MST 11"
+-17.895508996	28.759425397     217261.991 3184771.699     2171.600       -303.752    339.752    22.60  13.60   9.00   8.60   M-12	 16 -0.002   0.002   0.300  "MST 12"
+-17.893362904	28.759045194     217470.622 3184724.448     2207.000       -345.895    130.157    58.00  49.00   9.00   8.60   M-13	 17 -0.005  -0.003   0.000  "MST 13"
+-17.891229101	28.758774594     217678.349 3184689.381     2231.200       -375.886    -78.239    82.20  73.20   9.00   8.60   M-14	 18  0.004   0.001   0.600  "MST 14"
+-17.892003331	28.762162090     217611.841 3185066.770     2178.000         -0.444     -2.624    29.00  20.00   9.00   8.60   M-15	 19 -0.444  -2.624   0.000  "MST 15"
+
+# Two of those positions differed in prod-5/prod-5b simulations:
+# -17.894064891 28.762410329     217411.118 3185099.188     2161.200         27.070    198.710    12.20   3.20   9.00   8.60   M-03	  7   0.00    0.00    0.00  "MST 3"
+# -17.892030200 28.762166097     217609.227 3185067.278     2178.000          0.000     -0.000    29.00  20.00   9.00   8.60   M-15	 19   0.00    0.00    0.00  "MST 15"
+
+-17.888958350   28.762348228     217909.804 3185080.179     2202.000         20.190   -300.000    53.00  44.00   9.00   8.60   M-100	 -1   0.00    0.00    0.00  -
+-17.888088092   28.759684804     217987.651 3184782.838     2237.000       -275.000   -385.000    88.00  79.00   9.00   8.60   M-110	 -1   0.00    0.00    0.00  -
+-17.888343928   28.763654791     217973.343 3185223.572     2206.000        165.000   -360.000    57.00  48.00   9.00   8.60   M-90	 -1   0.00    0.00    0.00  -
+-17.889675149   28.760722452     217835.403 3184901.640     2209.000       -160.000   -230.000    60.00  51.00   9.00   8.60   M-076	 -1   0.00    0.00    0.00  -
+-17.893719669   28.759369055     217436.642 3184761.200     2197.000       -310.000    165.000    48.00  39.00   9.00   8.60   M-1301	 -1   0.00    0.00    0.00  -
+-17.892951740   28.760812692     217515.554 3184919.423     2179.000       -150.000     90.000    30.00  21.00   9.00   8.60   M-0251	 -1   0.00    0.00    0.00  -
+-17.891876609   28.759594634     217617.302 3184781.831     2212.000       -285.000    -15.000    63.00  54.00   9.00   8.60   M-0151	 -1   0.00    0.00    0.00  -
+-17.889982359   28.759188597     217801.261 3184732.320     2188.000       -330.000   -200.000    39.00  30.00   9.00   8.60   M-140	 -1   0.00    0.00    0.00  -
+-17.887320008   28.762797603     218071.061 3185126.113     2222.000         70.000   -460.000    73.00  64.00   9.00   8.60   M-500	 -1   0.00    0.00    0.00  -
+-17.887320075   28.761308862     218067.049 3184961.066     2242.000        -95.000   -460.000    93.00  84.00   9.00   8.60   M-501	 -1   0.00    0.00    0.00  -
+-17.890084644   28.765053339     217807.063 3185382.750     2174.000        320.000   -190.000    25.00  16.00   9.00   8.60   M-600	 -1   0.00    0.00    0.00  -
+-17.889777436   28.765594697     217838.531 3185442.038     2164.000        380.000   -220.000    15.00   6.00   9.00   8.60   M-601	 -1   0.00    0.00    0.00  -
+-17.891108622   28.764466876     217705.454 3185320.163     2164.000        255.000    -90.000    15.00   6.00   9.00   8.60   M-602	 -1   0.00    0.00    0.00  -
+#
+# MST4 alternate positions for prod5b. Start with reminder on MST4 itself.
+# 17.892778309  28.763750565     217540.416 3185244.715     2158.000        175.610     73.060     9.00   0.00   9.00   8.60   M-04       8   0.00   -0.00    0.00  "MST 4"
+-17.892839130   28.763465360     217533.706 3185213.241     2161.000        144.        79.       12.0    3.0    9.0    8.60   M-4A      -1   0.00    0.00    0.00  -
+-17.892542182   28.763699951     217563.346 3185238.543     2160.000        170.        50.       11.0    2.0    9.0    8.60   M-4B      -1   0.00    0.00    0.00  -
+# The following MST4C position would result in a CORSIKA/IACT fiducial sphere extending below observation level.
+# -17.892869852 28.763880403     217531.823 3185259.327     2155.000        190.        82.        6.0   -3.0    9.0    8.60   M-4C      -1   0.00    0.00    0.00  -
+-17.892869852   28.763880403     217531.823 3185259.327     2158.000        190.        82.        9.0    0.0    9.0    8.60   M-4C      -1   0.00    0.00    0.00  - (forced to be above observation level)
+# More alternate MST positions for prod5b. The first of those (M-04D) is again lifted above the pre-existing observation level.
+-17.892869855   28.764245821     217532.808 3185299.839     2158.000        230.5      82.0        9.0    0.0    9.00   8.60   M-04D     -1   0.00    0.00    0.00  -
+-17.892009721   28.762432266     217611.945 3185096.738     2180.000         29.5      -2.0       31.0   22.0    9.00   8.60   M-15A     -1   0.00    0.00    0.00  -
+-17.890350907   28.763230762     217776.143 3185181.324     2177.000        118.0    -164.0       28.0   19.0    9.00   8.60   M-05B     -1   0.00    0.00    0.00  -
+-17.890965307   28.760839759     217709.683 3184917.707     2191.000       -147.0    -104.0       42.0   33.0    9.00   8.60   M-76B     -1   0.00    0.00    0.00  -
+-17.891559179   28.763104455     217657.769 3185170.190     2178.000        104.0     -46.0       29.0   20.0    9.00   8.60   M-405     -1   0.00    0.00    0.00  -
+-17.892168432   28.761349545     217593.523 3184977.080     2175.000        -90.5      13.5       26.0   17.0    9.00   8.60   M-201     -1   0.00    0.00    0.00  -
+-17.889122161   28.763014197     217895.594 3185154.399     2194.000         94.0    -284.0       45.0   36.0    9.00   8.60   M-05C     -1   0.00    0.00    0.00  -
+-17.889347471   28.761475836     217869.442 3184984.385     2192.000        -76.5    -262.0       43.0   34.0    9.00   8.60   M-06B     -1   0.00    0.00    0.00  -
+-17.888927695   28.760135959     217906.843 3184834.846     2230.000       -225.0    -303.0       81.0   72.0    9.00   8.60   M-751     -1   0.00    0.00    0.00  -
+
+#
+# Inofficial positions of MAGIC telescopes existing on site, to be verified:
+#
+-17.890067      28.761955        217800.442 3185039.215     2187.30         -23.395   -191.729    42.30  30.30  12.00   9.50   "MAGIC-1"  Alt=2187.30 (ground) KB version
+# -17.890041901	28.761919041     217802.797 3185035.169     2187.30         -27.38    -194.18     42.30  30.30  12.00   9.50   "MAGIC-1"  Alt=2187.30 (ground) FdP version
+-17.890555      28.761325        217751.073 3184970.529     2187.23         -93.219   -144.071    42.23  30.23  12.00   9.50   "MAGIC-2"  Alt=2187.23 (ground) KB version
+# -17.890553371	28.761300092     217751.165 3184967.763     2187.23         -95.98    -144.23     42.23  30.23  12.00   9.50   "MAGIC-2"  Alt=2187.23 (ground) FdP version
